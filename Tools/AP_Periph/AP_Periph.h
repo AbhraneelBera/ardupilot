@@ -30,6 +30,7 @@
 #if HAL_WITH_ESC_TELEM
 #include <AP_ESC_Telem/AP_ESC_Telem.h>
 #endif
+#include "AP_OpticalFlow_Pixart.h"
 
 #include <AP_NMEA_Output/AP_NMEA_Output.h>
 #if HAL_NMEA_OUTPUT_ENABLED && !(HAL_GCS_ENABLED && defined(HAL_PERIPH_ENABLE_GPS))
@@ -360,6 +361,8 @@ public:
         bool locked;
     } uart_monitor;
 #endif
+    AP_OpticalFlow_Pixart *flow;
+
 };
 
 namespace AP

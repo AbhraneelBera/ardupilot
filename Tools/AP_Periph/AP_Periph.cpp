@@ -272,6 +272,14 @@ void AP_Periph_FW::init()
 #if AP_SCRIPTING_ENABLED
     scripting.init();
 #endif
+
+    // flow = AP_OpticalFlow_Pixart::detect("pixartflow");
+    // if (flow == nullptr) {
+    //     can_printf("failed!\n");
+    // } else {
+    //     can_printf("success!\n");
+    // }
+
     start_ms = AP_HAL::native_millis();
 }
 
@@ -414,6 +422,10 @@ void AP_Periph_FW::update()
         gcs().send_message(MSG_HEARTBEAT);
         gcs().send_message(MSG_SYS_STATUS);
 #endif    
+
+        if (flow == nullptr) {
+            flow = AP_OpticalFlow_Pixart::detect("pixartflow");
+        }
     }
 
     static uint32_t last_error_ms;
@@ -482,6 +494,10 @@ void AP_Periph_FW::update()
 #ifdef HAL_PERIPH_ENABLE_ADSB
     adsb_update();
 #endif
+
+    // if (flow) {
+    //     flow->timer();
+    // }
 }
 
 #ifdef HAL_PERIPH_LISTEN_FOR_SERIAL_UART_REBOOT_CMD_PORT
